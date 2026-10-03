@@ -320,6 +320,8 @@ class ParkingManager:
         """
         from random import randint, choice
         
+        cursor = self.db.conn.cursor()
+        
         # Simulate data for past 7 days
         for day_offset in range(7):
             date = datetime.now() - timedelta(days=day_offset)
@@ -345,7 +347,7 @@ class ParkingManager:
                 
                 # Insert into analytics
                 timestamp = date.replace(hour=hour, minute=randint(0, 59))
-                self.db.cursor.execute('''
+                cursor.execute('''
                     INSERT INTO parking_analytics 
                     (hour_of_day, day_of_week, occupancy_rate, timestamp)
                     VALUES (?, ?, ?, ?)

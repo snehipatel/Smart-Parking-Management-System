@@ -21,13 +21,14 @@ class ParkingDatabase:
             db_path = db_name
         self.db_name = db_path
         self.conn = sqlite3.connect(db_path, check_same_thread=False)
-        self.cursor = self.conn.cursor()
         self.initialize_database()
     
     def initialize_database(self):
         """Create tables and initialize parking slots"""
+        cursor = self.conn.cursor()
+
         # Create parking slots table
-        self.cursor.execute('''
+        cursor.execute('''
             CREATE TABLE IF NOT EXISTS parking_slots (
                 slot_id TEXT PRIMARY KEY,
                 floor_number INTEGER NOT NULL,
@@ -41,7 +42,7 @@ class ParkingDatabase:
         ''')
         
         # Create booking history table
-        self.cursor.execute('''
+        cursor.execute('''
             CREATE TABLE IF NOT EXISTS booking_history (
                 booking_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 slot_id TEXT NOT NULL,
@@ -55,7 +56,7 @@ class ParkingDatabase:
         ''')
         
         # Create analytics table for rush prediction
-        self.cursor.execute('''
+        cursor.execute('''
             CREATE TABLE IF NOT EXISTS parking_analytics (
                 record_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 hour_of_day INTEGER NOT NULL,
@@ -68,8 +69,8 @@ class ParkingDatabase:
         self.conn.commit()
         
         # Initialize slots if database is empty
-        self.cursor.execute("SELECT COUNT(*) FROM parking_slots")
-        if self.cursor.fetchone()[0] == 0:
+        cursor.execute("SELECT COUNT(*) FROM parking_slots")
+        if cursor.fetchone()[0] == 0:
             self.create_parking_slots()
     
     def create_parking_slots(self):
@@ -79,6 +80,7 @@ class ParkingDatabase:
         - 1 floor for 4-wheelers (Basement 2)
         Each floor has slots arranged in a grid
         """
+        cursor = self.conn.cursor()
         slots = []
         
         # Ground Floor - 2 Wheeler (20 slots in 4x5 grid)
@@ -132,7 +134,7 @@ class ParkingDatabase:
                 ))
         
         # Insert all slots
-        self.cursor.executemany('''
+        cursor.executemany('''
             INSERT INTO parking_slots 
             (slot_id, floor_number, slot_number, vehicle_type, is_occupied, 
              distance_from_stairs, position_x, position_y)
@@ -144,7 +146,8 @@ class ParkingDatabase:
     
     def get_available_slots(self, vehicle_type):
         """Get all available slots for a specific vehicle type, sorted by distance"""
-        self.cursor.execute('''
+        cursor = self.conn.cursor()
+        cursor.execute('''
             SELECT slot_id, floor_number, slot_number, distance_from_stairs, 
                    position_x, position_y
             FROM parking_slots
@@ -152,7 +155,7 @@ class ParkingDatabase:
             ORDER BY distance_from_stairs ASC, slot_number ASC
         ''', (vehicle_type,))
         
-        return self.cursor.fetchall()
+        return cursor.fetchall()
     
     def get_best_slot(self, vehicle_type):
         """Get the best available slot (nearest to stairs)"""
@@ -161,19 +164,20 @@ class ParkingDatabase:
     
     def book_slot(self, slot_id, vehicle_number, vehicle_type):
         """Book a parking slot"""
+        cursor = self.conn.cursor()
         try:
             # Mark slot as occupied
-            self.cursor.execute('''
+            cursor.execute('''
                 UPDATE parking_slots 
                 SET is_occupied = 1 
                 WHERE slot_id = ? AND is_occupied = 0
             ''', (slot_id,))
             
-            if self.cursor.rowcount == 0:
+            if cursor.rowcount == 0:
                 return False, "Slot already occupied or doesn't exist"
             
             # Record booking
-            self.cursor.execute('''
+            cursor.execute('''
                 INSERT INTO booking_history 
                 (slot_id, vehicle_number, vehicle_type, entry_time)
                 VALUES (?, ?, ?, ?)
@@ -232,7 +236,8 @@ class ParkingDatabase:
         """
         Check if a vehicle currently has an active booking
         """
-        self.cursor.execute("""
+        cursor = self.conn.cursor()
+        cursor.execute("""
             SELECT 1
             FROM booking_history
             WHERE vehicle_number = ?
@@ -240,13 +245,14 @@ class ParkingDatabase:
             LIMIT 1
         """, (vehicle_number,))
         
-        return self.cursor.fetchone() is not None
+        return cursor.fetchone() is not None
 
     def get_last_parking_entry(self):
         """
         Get the most recent active parking entry
         """
-        self.cursor.execute("""
+        cursor = self.conn.cursor()
+        cursor.execute("""
             SELECT vehicle_number, slot_id
             FROM booking_history
             WHERE exit_time IS NULL
@@ -254,7 +260,7 @@ class ParkingDatabase:
             LIMIT 1
         """)
         
-        row = self.cursor.fetchone()
+        row = cursor.fetchone()
         if not row:
             return None
 
@@ -267,7 +273,8 @@ class ParkingDatabase:
         """
         Remove active parking record (used for undo)
         """
-        self.cursor.execute("""
+        cursor = self.conn.cursor()
+        cursor.execute("""
             DELETE FROM booking_history
             WHERE vehicle_number = ?
             AND exit_time IS NULL
@@ -279,7 +286,8 @@ class ParkingDatabase:
         """
         Mark a slot as vacant
         """
-        self.cursor.execute("""
+        cursor = self.conn.cursor()
+        cursor.execute("""
             UPDATE parking_slots
             SET is_occupied = 0
             WHERE slot_id = ?
@@ -292,7 +300,8 @@ class ParkingDatabase:
 
     def get_floor_occupancy(self):
         """Get occupancy statistics for each floor"""
-        self.cursor.execute('''
+        cursor = self.conn.cursor()
+        cursor.execute('''
             SELECT 
                 floor_number,
                 vehicle_type,
@@ -305,34 +314,36 @@ class ParkingDatabase:
             ORDER BY floor_number
         ''')
         
-        return self.cursor.fetchall()
+        return cursor.fetchall()
     
     def get_parking_grid(self, floor_number):
         """Get parking grid layout for visualization"""
-        self.cursor.execute('''
+        cursor = self.conn.cursor()
+        cursor.execute('''
             SELECT slot_id, position_x, position_y, is_occupied, slot_number
             FROM parking_slots
             WHERE floor_number = ?
             ORDER BY position_y, position_x
         ''', (floor_number,))
         
-        return self.cursor.fetchall()
+        return cursor.fetchall()
     
     def update_analytics(self):
         """Record current occupancy for rush prediction"""
+        cursor = self.conn.cursor()
         now = datetime.now()
         
-        self.cursor.execute('''
+        cursor.execute('''
             SELECT 
                 COUNT(*) as total,
                 SUM(is_occupied) as occupied
             FROM parking_slots
         ''')
         
-        total, occupied = self.cursor.fetchone()
+        total, occupied = cursor.fetchone()
         occupancy_rate = (occupied / total * 100) if total > 0 else 0
         
-        self.cursor.execute('''
+        cursor.execute('''
             INSERT INTO parking_analytics 
             (hour_of_day, day_of_week, occupancy_rate, timestamp)
             VALUES (?, ?, ?, ?)
@@ -342,7 +353,8 @@ class ParkingDatabase:
     
     def get_rush_prediction(self):
         """Predict rush hours based on historical data"""
-        self.cursor.execute('''
+        cursor = self.conn.cursor()
+        cursor.execute('''
             SELECT 
                 hour_of_day,
                 AVG(occupancy_rate) as avg_occupancy,
@@ -353,13 +365,14 @@ class ParkingDatabase:
             ORDER BY hour_of_day
         ''')
         
-        return self.cursor.fetchall()
+        return cursor.fetchall()
     
     def get_current_day_rush(self):
         """Get rush prediction for current day of week"""
+        cursor = self.conn.cursor()
         current_day = datetime.now().weekday()
         
-        self.cursor.execute('''
+        cursor.execute('''
             SELECT 
                 hour_of_day,
                 AVG(occupancy_rate) as avg_occupancy,
@@ -371,11 +384,12 @@ class ParkingDatabase:
             ORDER BY hour_of_day
         ''', (current_day,))
         
-        return self.cursor.fetchall()
+        return cursor.fetchall()
     
     def get_recent_bookings(self, limit=10):
         """Get recent booking history"""
-        self.cursor.execute('''
+        cursor = self.conn.cursor()
+        cursor.execute('''
             SELECT 
                 booking_id,
                 slot_id,
@@ -389,13 +403,14 @@ class ParkingDatabase:
             LIMIT ?
         ''', (limit,))
         
-        return self.cursor.fetchall()
+        return cursor.fetchall()
     
     def reset_database(self):
         """Reset entire database (for testing/demo purposes)"""
-        self.cursor.execute("DELETE FROM parking_slots")
-        self.cursor.execute("DELETE FROM booking_history")
-        self.cursor.execute("DELETE FROM parking_analytics")
+        cursor = self.conn.cursor()
+        cursor.execute("DELETE FROM parking_slots")
+        cursor.execute("DELETE FROM booking_history")
+        cursor.execute("DELETE FROM parking_analytics")
         self.conn.commit()
         self.create_parking_slots()
     

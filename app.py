@@ -128,21 +128,12 @@ html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stApp"] {
     padding: 0 !important;
 }
 
-[data-testid="stSidebar"] [data-testid="stRadio"] [data-testid="stRadioIndicator"],
-[data-testid="stSidebar"] [data-testid="stRadio"] div:has(> input[type="radio"]),
-[data-testid="stSidebar"] [data-testid="stRadio"] input[type="radio"],
-[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-of-type:not([data-testid="stMarkdownContainer"]) {
+[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-child {
     display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] > div {
-    gap: 3px !important;
+    gap: 4px !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] label {
@@ -152,17 +143,19 @@ html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stApp"] {
     padding: 0.62rem 1rem !important;
     border-radius: 12px !important;
     margin: 0 !important;
-    font-size: 0.88rem !important;
+    font-size: 0.9rem !important;
     font-weight: 700 !important;
+    color: #475569 !important;
     cursor: pointer !important;
     transition: all 0.18s ease-in-out !important;
     background: transparent !important;
     border: none !important;
 }
 
-[data-testid="stSidebar"] [data-testid="stRadio"] label * {
-    color: #334155 !important;
-    -webkit-text-fill-color: #334155 !important;
+[data-testid="stSidebar"] [data-testid="stRadio"] label p,
+[data-testid="stSidebar"] [data-testid="stRadio"] label span {
+    color: #475569 !important;
+    -webkit-text-fill-color: #475569 !important;
     font-size: 0.9rem !important;
     font-weight: 700 !important;
 }
@@ -171,17 +164,21 @@ html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stApp"] {
     background: #f4f6fc !important;
 }
 
-[data-testid="stSidebar"] [data-testid="stRadio"] label:hover * {
+[data-testid="stSidebar"] [data-testid="stRadio"] label:hover p,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:hover span {
     color: #6c5dd3 !important;
     -webkit-text-fill-color: #6c5dd3 !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) {
     background: linear-gradient(135deg, #6c5dd3 0%, #5a4bcf 100%) !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
     box-shadow: 0 5px 15px rgba(108, 93, 211, 0.3) !important;
 }
 
-[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) * {
+[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) p,
+[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) span {
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
     font-weight: 800 !important;

@@ -777,14 +777,34 @@ div[data-testid="stVerticalBlockBorderWrapper"] > div {
     color: #94a3b8;
 }
 
-/* ─── Park Vehicle: Rectangular Pass Close Button ─── */
-div[data-testid="stColumn"]:has(.rect-pass-card) {
+/* ─── Rectangular Pass Styling (Park & Exit) ─── */
+.rect-exit-pass-card {
+    border: 2px solid #22c55e !important;
+    box-shadow: 0 6px 24px rgba(34, 197, 94, 0.16) !important;
+}
+
+.rect-exit-pass-card::before {
+    background: linear-gradient(90deg, #16a34a, #22c55e, #16a34a) !important;
+}
+
+.rect-exit-pass-card .rp-slot-block,
+.rp-slot-block.rp-exit-slot-block {
+    background: linear-gradient(135deg, #16a34a, #15803d) !important;
+    box-shadow: 0 3px 10px rgba(22, 163, 74, 0.28) !important;
+}
+
+/* ─── Pass Close Button (Park & Exit) ─── */
+div[data-testid="stColumn"]:has(.rect-pass-card),
+div[data-testid="stColumn"]:has(.rect-exit-pass-card) {
     position: relative !important;
 }
 
 div[data-testid="stColumn"]:has(.rect-pass-card) > div > div:has(button),
 div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stVerticalBlock"] > div:has(button),
-div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="element-container"]:has(button) {
+div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="element-container"]:has(button),
+div[data-testid="stColumn"]:has(.rect-exit-pass-card) > div > div:has(button),
+div[data-testid="stColumn"]:has(.rect-exit-pass-card) div[data-testid="stVerticalBlock"] > div:has(button),
+div[data-testid="stColumn"]:has(.rect-exit-pass-card) div[data-testid="element-container"]:has(button) {
     position: absolute !important;
     top: 10px !important;
     right: 14px !important;
@@ -795,14 +815,16 @@ div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="element-contai
     padding: 0 !important;
 }
 
-div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] {
+div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"],
+div[data-testid="stColumn"]:has(.rect-exit-pass-card) div[data-testid="stButton"] {
     position: static !important;
     width: auto !important;
     margin: 0 !important;
     padding: 0 !important;
 }
 
-div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] > button {
+div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] > button,
+div[data-testid="stColumn"]:has(.rect-exit-pass-card) div[data-testid="stButton"] > button {
     width: 24px !important;
     height: 24px !important;
     min-width: 24px !important;
@@ -826,7 +848,8 @@ div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] > b
     cursor: pointer !important;
 }
 
-div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] > button:hover {
+div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] > button:hover,
+div[data-testid="stColumn"]:has(.rect-exit-pass-card) div[data-testid="stButton"] > button:hover {
     background: #fee2e2 !important;
     color: #ef4444 !important;
     -webkit-text-fill-color: #ef4444 !important;
@@ -834,7 +857,8 @@ div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] > b
     transform: scale(1.12) !important;
 }
 
-div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] > button * {
+div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] > button *,
+div[data-testid="stColumn"]:has(.rect-exit-pass-card) div[data-testid="stButton"] > button * {
     color: inherit !important;
     -webkit-text-fill-color: inherit !important;
     font-size: inherit !important;
@@ -891,6 +915,38 @@ div[data-testid="stHorizontalBlock"]:has(.park-form-box) div[data-testid="stColu
     flex-direction: column !important;
     flex: 1 1 auto !important;
     height: 100% !important;
+    justify-content: space-between !important;
+}
+
+/* ─── Exit Vehicle: Equal-Height Columns ─── */
+div[data-testid="stHorizontalBlock"]:has(.exit-form-box) {
+    display: flex !important;
+    align-items: stretch !important;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.exit-form-box) > div[data-testid="stColumn"] {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.exit-form-box) > div[data-testid="stColumn"] > div[data-testid="stVerticalBlock"] {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.exit-form-box) div[data-testid="stVerticalBlockBorderWrapper"] {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    margin-bottom: 0 !important;
+    box-sizing: border-box !important;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.exit-form-box) div[data-testid="stVerticalBlockBorderWrapper"] > div[data-testid="stVerticalBlock"] {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
     justify-content: space-between !important;
 }
 
@@ -1114,6 +1170,8 @@ if "nav_page" not in st.session_state:
     st.session_state.nav_page = "🏠  Dashboard"
 if "floating_pass" not in st.session_state:
     st.session_state.floating_pass = None
+if "floating_exit_pass" not in st.session_state:
+    st.session_state.floating_exit_pass = None
 
 def set_page(page_name):
     st.session_state.nav_page = page_name
@@ -1948,21 +2006,84 @@ def render_park_vehicle():
 def render_exit_vehicle():
     render_top_bar()
 
-    st.markdown(clean_html("""
-        <div class="subpage-header-box">
-            <div class="subpage-badge-pill">🚪 VEHICLE EXIT TERMINAL</div>
-            <h1 class="subpage-main-title">Exit & Release Parking</h1>
-            <div class="subpage-sub-desc">Automated slot release, duration calculation, and digital checkout receipt</div>
-        </div>
-    """), unsafe_allow_html=True)
+    # ─── HEADER ROW: Title (left) + Rectangular Exit Receipt (right blank space) ───
+    has_pass = st.session_state.get("floating_exit_pass") is not None
 
-    col_exit_form, col_active_roster = st.columns([1.2, 1.3])
+    if has_pass:
+        col_hdr, col_pass_area = st.columns([1.15, 1.35])
+    else:
+        col_hdr = st.container()
+        col_pass_area = None
+
+    with col_hdr:
+        st.markdown(clean_html("""
+            <div class="subpage-header-box">
+                <div class="subpage-badge-pill">🚪 VEHICLE EXIT TERMINAL</div>
+                <h1 class="subpage-main-title">Exit & Release Parking</h1>
+                <div class="subpage-sub-desc">Automated slot release, duration calculation, and digital checkout receipt</div>
+            </div>
+        """), unsafe_allow_html=True)
+
+    if has_pass and col_pass_area is not None:
+        fp = st.session_state.floating_exit_pass
+        vtype_icon = "🚗" if fp.get("vtype") == "4-Wheeler" else "🏍️"
+        with col_pass_area:
+            st.markdown(clean_html(f"""
+                <div class="rect-pass-card rect-exit-pass-card">
+                    <div class="rp-top-row" style="padding-right: 32px;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span class="rp-badge" style="color:#16a34a;">Digital Exit Receipt</span>
+                            <span class="rp-status-pill" style="background:#dcfce7; color:#15803d;">✓ Paid & Released</span>
+                        </div>
+                    </div>
+                    <div class="rp-body">
+                        <div class="rp-slot-block rp-exit-slot-block">
+                            <div class="rp-slot-id">{fp['slot_id']}</div>
+                            <div class="rp-slot-floor">Slot Released</div>
+                            <div class="rp-slot-dist">Vacant Now</div>
+                        </div>
+                        <div class="rp-info-grid">
+                            <div>
+                                <div class="rp-field-label">Vehicle</div>
+                                <div class="rp-field-val">{vtype_icon} {fp['vehicle']}</div>
+                            </div>
+                            <div>
+                                <div class="rp-field-label">Category</div>
+                                <div class="rp-field-val">{fp['vtype']}</div>
+                            </div>
+                            <div>
+                                <div class="rp-field-label">Duration</div>
+                                <div class="rp-field-val">{fp['duration_str']}</div>
+                            </div>
+                            <div>
+                                <div class="rp-field-label">Total Fee</div>
+                                <div class="rp-field-val" style="color:#16a34a; font-size:0.85rem;">₹{fp['fee']}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rp-barcode-row">
+                        <span class="rp-barcode-bars">||| | |||| | ||| || ||||</span>
+                        <span class="rp-barcode-hint">Exit verified &bull; Slot released successfully</span>
+                    </div>
+                </div>
+            """), unsafe_allow_html=True)
+
+            if st.button("✕", key="dismiss_exit_pass", help="Dismiss receipt"):
+                st.session_state.floating_exit_pass = None
+                st.session_state.exit_success = None
+                st.rerun()
+
+    # ─── EQUAL-HEIGHT FORM + ACTIVE ROSTER COLUMNS ───
+    st.markdown('<div class="exit-equal-height"></div>', unsafe_allow_html=True)
+    col_exit_form, col_active_roster = st.columns([1.15, 1.35])
+
+    active_vehicles = get_active_parked_list()
 
     with col_exit_form:
         with st.container(border=True):
-            st.markdown('<div style="font-weight:800; font-size:1.1rem; color:#1e293b; margin-bottom:0.75rem;">🚗 Quick Checkout</div>', unsafe_allow_html=True)
+            st.markdown('<div class="exit-form-box"></div>', unsafe_allow_html=True)
+            st.markdown('<div style="font-weight:800; font-size:1.15rem; color:#1e293b; margin-bottom:0.75rem;">🚗 Quick Checkout</div>', unsafe_allow_html=True)
 
-            active_vehicles = get_active_parked_list()
             active_veh_options = ["-- Select from currently parked vehicles --"] + [f"{v[0]}  (Slot: {v[1]}, {v[2]})" for v in active_vehicles]
 
             selected_active = st.selectbox("Choose Parked Vehicle", active_veh_options, key="active_veh_dropdown")
@@ -1997,16 +2118,19 @@ def render_exit_vehicle():
                     rate = 20 if "2-Wheeler" in v_cat else 40
                     hours = max(1, (dur_min + 59) // 60)
                     fee = hours * rate
+                    dur_h = dur_min // 60
+                    dur_m = dur_min % 60
+                    dur_display = f"{dur_h}h {dur_m}m" if dur_h > 0 else f"{dur_min} mins"
 
                     st.markdown(clean_html(f"""
-                        <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:14px; padding:1.1rem; margin:1rem 0;">
+                        <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:14px; padding:1rem 1.1rem; margin:0.8rem 0 1rem 0;">
                             <div style="display:flex; justify-content:space-between; align-items:center;">
                                 <span style="font-size:1.25rem; font-weight:800; color:#9f1239;">{v_num}</span>
                                 <span style="font-size:0.8rem; font-weight:700; color:#ffffff; background:#e11d48; padding:3px 10px; border-radius:12px;">Slot {s_id}</span>
                             </div>
                             <div style="margin-top:10px; font-size:0.84rem; color:#475569; display:grid; grid-template-columns:1fr 1fr; gap:6px;">
                                 <div><b>Parked At:</b> {e_dt.strftime('%I:%M %p')}</div>
-                                <div><b>Duration:</b> {dur_min} mins</div>
+                                <div><b>Duration:</b> {dur_display}</div>
                                 <div><b>Category:</b> {v_cat}</div>
                                 <div><b>Calculated Fee:</b> ₹{fee}</div>
                             </div>
@@ -2017,71 +2141,58 @@ def render_exit_vehicle():
                 if not chosen_veh:
                     st.error("❌ Please select or enter a vehicle registration number to exit")
                 else:
+                    match = next((v for v in active_vehicles if v[0] == chosen_veh), None)
+                    v_cat = match[2] if match else None
+
                     success, data = st.session_state.manager.exit_vehicle(chosen_veh)
                     if success:
-                        st.session_state.exit_success = {
-                            "veh": chosen_veh,
-                            "slot_id": data["slot_id"],
-                            "duration": data["duration"],
-                            "entry_time": datetime.fromisoformat(data["entry_time"]).strftime("%I:%M %p (%d-%b)"),
-                            "exit_time": data["exit_time"].strftime("%I:%M %p (%d-%b)")
+                        s_id = data["slot_id"]
+                        if not v_cat:
+                            v_cat = "4-Wheeler" if ("4W" in s_id or "B2" in s_id) else "2-Wheeler"
+
+                        dur = data["duration"]
+                        dur_h = dur // 60
+                        dur_m = dur % 60
+                        duration_str = f"{dur_h}h {dur_m}m" if dur_h > 0 else f"{dur} mins"
+
+                        rate = 20 if "2-Wheeler" in v_cat else 40
+                        calc_h = max(1, (dur + 59) // 60)
+                        fee = calc_h * rate
+
+                        pass_data = {
+                            "vehicle": chosen_veh,
+                            "slot_id": s_id,
+                            "vtype": v_cat,
+                            "duration": dur,
+                            "duration_str": duration_str,
+                            "fee": fee,
+                            "entry_time": datetime.fromisoformat(data["entry_time"]).strftime("%I:%M %p"),
+                            "exit_time": data["exit_time"].strftime("%I:%M:%S %p"),
+                            "date": data["exit_time"].strftime("%d-%b-%Y")
                         }
+                        st.session_state.exit_success = pass_data
+                        st.session_state.floating_exit_pass = pass_data
                         st.session_state.pop("exit_veh_manual", None)
+                        st.session_state.pop("active_veh_dropdown", None)
                         st.rerun()
                     else:
                         st.error(data)
 
-        # Digital Exit Receipt
-        if st.session_state.get("exit_success"):
-            es = st.session_state.exit_success
-            st.markdown(clean_html(f"""
-                <div class="ticket-pass-card" style="border-color:#22c55e;">
-                    <div class="ticket-header">
-                        <div>
-                            <div style="font-size:0.75rem; font-weight:800; color:#16a34a; letter-spacing:1px;">SMART PARKING SYSTEM</div>
-                            <div style="font-size:1.1rem; font-weight:800; color:#1e293b;">DIGITAL EXIT RECEIPT</div>
-                        </div>
-                        <div style="font-size:0.8rem; font-weight:700; color:#15803d; background:#dcfce7; padding:4px 10px; border-radius:20px;">
-                            ✓ PAID & RELEASED
-                        </div>
-                    </div>
-                    <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:1rem; text-align:center; margin-bottom:1rem;">
-                        <div style="font-size:0.85rem; color:#15803d; font-weight:700;">Slot Released</div>
-                        <div style="font-size:1.8rem; font-weight:900; color:#166534;">{es['slot_id']}</div>
-                        <div style="font-size:0.78rem; color:#15803d;">Available for new vehicles now</div>
-                    </div>
-                    <div class="ticket-data-grid">
-                        <div>
-                            <div class="ticket-field-label">Vehicle</div>
-                            <div class="ticket-field-val">{es['veh']}</div>
-                        </div>
-                        <div>
-                            <div class="ticket-field-label">Total Time</div>
-                            <div class="ticket-field-val">{es['duration']} mins</div>
-                        </div>
-                        <div>
-                            <div class="ticket-field-label">Entry Time</div>
-                            <div class="ticket-field-val">{es['entry_time']}</div>
-                        </div>
-                        <div>
-                            <div class="ticket-field-label">Exit Time</div>
-                            <div class="ticket-field-val">{es['exit_time']}</div>
-                        </div>
-                    </div>
-                </div>
-            """), unsafe_allow_html=True)
-
-            if st.button("🚪 Exit Another Vehicle", use_container_width=True):
-                st.session_state.exit_success = None
-                st.rerun()
+            # Exit Another Vehicle button (only shows after a successful exit)
+            if st.session_state.get("floating_exit_pass"):
+                if st.button("🚪 Exit Another Vehicle", use_container_width=True, key="exit_another_btn"):
+                    st.session_state.exit_success = None
+                    st.session_state.floating_exit_pass = None
+                    st.rerun()
 
     with col_active_roster:
         with st.container(border=True):
-            st.markdown(f'<div style="font-weight:800; font-size:1.1rem; color:#1e293b; margin-bottom:0.8rem;">📋 Active Parked Vehicles ({len(active_vehicles)})</div>', unsafe_allow_html=True)
+            st.markdown('<div class="exit-roster-box"></div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="font-weight:800; font-size:1.15rem; color:#1e293b; margin-bottom:0.8rem;">📋 Active Parked Vehicles ({len(active_vehicles)})</div>', unsafe_allow_html=True)
 
             if active_vehicles:
                 roster_html = ""
-                for v in active_vehicles[:8]:
+                for v in active_vehicles:
                     try:
                         e_t = datetime.fromisoformat(v[3]).strftime("%I:%M %p")
                     except:
@@ -2097,20 +2208,22 @@ def render_exit_vehicle():
                         </tr>
                     """
                 st.markdown(clean_html(f"""
-                    <table class="activity-table-clean">
-                        <thead>
-                            <tr>
-                                <th>Vehicle</th>
-                                <th>Type</th>
-                                <th>Slot</th>
-                                <th>Entry</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {roster_html}
-                        </tbody>
-                    </table>
+                    <div style="max-height: 380px; overflow-y: auto; padding-right: 4px;">
+                        <table class="activity-table-clean">
+                            <thead>
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Type</th>
+                                    <th>Slot</th>
+                                    <th>Entry</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {roster_html}
+                            </tbody>
+                        </table>
+                    </div>
                 """), unsafe_allow_html=True)
             else:
                 st.info("No vehicles currently parked.")
@@ -2440,6 +2553,11 @@ def main():
     if current != "🚗  Park Vehicle":
         st.session_state.floating_pass = None
         st.session_state.parking_success = None
+
+    # Clear exit receipt when leaving Exit Vehicle tab
+    if current != "🚪  Exit Vehicle":
+        st.session_state.floating_exit_pass = None
+        st.session_state.exit_success = None
 
     if current == "🏠  Dashboard":
         render_dashboard()

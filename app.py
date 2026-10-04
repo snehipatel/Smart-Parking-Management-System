@@ -128,8 +128,17 @@ html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stApp"] {
     padding: 0 !important;
 }
 
-[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-child {
+[data-testid="stSidebar"] [data-testid="stRadio"] [data-testid="stRadioIndicator"],
+[data-testid="stSidebar"] [data-testid="stRadio"] div:has(> input[type="radio"]),
+[data-testid="stSidebar"] [data-testid="stRadio"] input[type="radio"],
+[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-of-type:not([data-testid="stMarkdownContainer"]) {
     display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] > div {
@@ -140,33 +149,42 @@ html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stApp"] {
     display: flex !important;
     align-items: center !important;
     width: 100% !important;
-    padding: 0.58rem 1rem !important;
+    padding: 0.62rem 1rem !important;
     border-radius: 12px !important;
     margin: 0 !important;
     font-size: 0.88rem !important;
-    font-weight: 600 !important;
-    color: #64748b !important;
+    font-weight: 700 !important;
     cursor: pointer !important;
     transition: all 0.18s ease-in-out !important;
     background: transparent !important;
     border: none !important;
 }
 
+[data-testid="stSidebar"] [data-testid="stRadio"] label * {
+    color: #334155 !important;
+    -webkit-text-fill-color: #334155 !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+}
+
 [data-testid="stSidebar"] [data-testid="stRadio"] label:hover {
     background: #f4f6fc !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stRadio"] label:hover * {
     color: #6c5dd3 !important;
+    -webkit-text-fill-color: #6c5dd3 !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) {
     background: linear-gradient(135deg, #6c5dd3 0%, #5a4bcf 100%) !important;
-    color: #ffffff !important;
-    font-weight: 700 !important;
     box-shadow: 0 5px 15px rgba(108, 93, 211, 0.3) !important;
 }
 
-[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) p,
-[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) span {
+[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) * {
     color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    font-weight: 800 !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:nth-child(7) {
@@ -310,8 +328,9 @@ html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stApp"] {
 }
 
 .subpage-sub-desc {
-    font-size: 0.88rem;
-    color: #94a3b8;
+    font-size: 0.9rem;
+    color: #475569 !important;
+    font-weight: 600;
     margin-top: 4px;
 }
 
@@ -324,16 +343,16 @@ html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stApp"] {
 }
 
 .welcome-sub-greeting {
-    font-size: 0.92rem;
-    color: #64748b;
-    font-weight: 500;
+    font-size: 0.95rem;
+    color: #475569 !important;
+    font-weight: 600;
     margin-bottom: 4px;
 }
 
 .welcome-main-title {
     font-size: 2.1rem;
     font-weight: 800;
-    color: #1e293b;
+    color: #0f172a !important;
     line-height: 1.2;
     letter-spacing: -0.5px;
     margin: 0;
@@ -345,7 +364,8 @@ html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stApp"] {
 
 .welcome-desc {
     font-size: 0.92rem;
-    color: #94a3b8;
+    color: #475569 !important;
+    font-weight: 600;
     margin-top: 6px;
 }
 
@@ -372,9 +392,9 @@ html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stApp"] {
     box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
 }
 
-.clock-day-text { font-size: 0.74rem; color: #94a3b8; font-weight: 600; }
-.clock-date-text { font-size: 1.15rem; font-weight: 800; color: #1e293b; line-height: 1.2; }
-.clock-time-text { font-size: 0.78rem; color: #94a3b8; font-weight: 500; }
+.clock-day-text { font-size: 0.74rem; color: #475569 !important; font-weight: 700; }
+.clock-date-text { font-size: 1.15rem; font-weight: 900; color: #0f172a !important; line-height: 1.2; }
+.clock-time-text { font-size: 0.78rem; color: #475569 !important; font-weight: 600; }
 
 /* ─── 4 TOP STAT CARDS ─── */
 .kpi-card {
@@ -409,9 +429,9 @@ html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stApp"] {
 .icon-sq-amber { background: #ffedd5; color: #ea580c; }
 
 .kpi-body { flex: 1; }
-.kpi-label { font-size: 0.78rem; color: #64748b; font-weight: 600; margin-bottom: 2px; }
-.kpi-value { font-size: 1.9rem; font-weight: 800; color: #1e293b; line-height: 1.1; }
-.kpi-subtext { font-size: 0.73rem; color: #94a3b8; margin-top: 4px; }
+.kpi-label { font-size: 0.8rem; color: #334155 !important; font-weight: 700; margin-bottom: 2px; }
+.kpi-value { font-size: 1.9rem; font-weight: 900; color: #0f172a !important; line-height: 1.1; }
+.kpi-subtext { font-size: 0.75rem; color: #475569 !important; margin-top: 4px; font-weight: 600; }
 .kpi-corner-badge { position: absolute; top: 14px; right: 14px; }
 
 .badge-p-box {
@@ -620,30 +640,201 @@ div[data-testid="stVerticalBlockBorderWrapper"] > div {
     border-top: 1px dashed #edf2f7;
 }
 
-/* Generic Streamlit Elements */
-.stButton > button {
-    background: linear-gradient(135deg, #6c5dd3, #5a4bcf) !important;
-    color: #ffffff !important;
-    border: none !important;
-    padding: 0.65rem 1.8rem !important;
-    font-weight: 700 !important;
-    border-radius: 12px !important;
-    font-size: 0.88rem !important;
-    box-shadow: 0 4px 14px rgba(108, 93, 211, 0.25) !important;
+/* ─── GUARANTEED HIGH-CONTRAST STREAMLIT ELEMENTS & LABELS ─── */
+/* Force all headings to be dark and crisp */
+h1, h2, h3, h4, h5, h6 {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
 }
 
-.stTextInput > div > div > input {
-    background: #f8fafc !important;
-    border: 1px solid #e2e8f0 !important;
+/* All form/widget labels across the entire app */
+label,
+[data-testid="stWidgetLabel"],
+[data-testid="stWidgetLabel"] p,
+[data-testid="stWidgetLabel"] span,
+[data-testid="stWidgetLabel"] label,
+.stTextInput label,
+.stSelectbox label,
+.stCheckbox label {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+    font-weight: 800 !important;
+    font-size: 0.92rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.35rem !important;
+}
+
+/* Text Inputs (Park & Exit terminals, Admin password, search, etc.) */
+input,
+textarea,
+[data-testid="stTextInput"] input,
+.stTextInput input {
+    background-color: #f8fafc !important;
+    border: 1.5px solid #cbd5e1 !important;
     border-radius: 12px !important;
-    color: #1e293b !important;
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
     font-family: inherit !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
     padding: 0.65rem 1rem !important;
 }
 
-.stSelectbox > div > div {
-    background: #f8fafc !important;
+input:focus,
+.stTextInput input:focus {
+    border-color: #6c5dd3 !important;
+    box-shadow: 0 0 0 3px rgba(108, 93, 211, 0.15) !important;
+    background-color: #ffffff !important;
+}
+
+input::placeholder,
+.stTextInput input::placeholder {
+    color: #94a3b8 !important;
+    -webkit-text-fill-color: #94a3b8 !important;
+}
+
+/* Selectbox / Dropdowns */
+[data-baseweb="select"],
+[data-baseweb="select"] * {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+    font-family: inherit !important;
+}
+
+div[data-baseweb="select"] > div {
+    background-color: #f8fafc !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    padding: 2px 4px !important;
+}
+
+div[data-baseweb="select"] > div:hover {
+    border-color: #6c5dd3 !important;
+}
+
+/* Dropdown Popup Menu List */
+ul[role="listbox"],
+[data-baseweb="popover"],
+[data-baseweb="menu"] {
+    background-color: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+li[role="option"] {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+    font-weight: 600 !important;
+    padding: 0.6rem 1rem !important;
+}
+
+li[role="option"]:hover,
+li[role="option"][aria-selected="true"] {
+    background-color: #eef2ff !important;
+    color: #6c5dd3 !important;
+    -webkit-text-fill-color: #6c5dd3 !important;
+}
+
+/* Metrics (Parking Layout & Statistics) */
+[data-testid="stMetric"] {
+    background: #ffffff !important;
+    border: 1px solid #edf2f7 !important;
+    border-radius: 14px !important;
+    padding: 1rem 1.25rem !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02) !important;
+}
+
+[data-testid="stMetricLabel"],
+[data-testid="stMetricLabel"] * {
+    color: #475569 !important;
+    -webkit-text-fill-color: #475569 !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    text-transform: capitalize !important;
+}
+
+[data-testid="stMetricValue"],
+[data-testid="stMetricValue"] * {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+    font-weight: 900 !important;
+    font-size: 1.9rem !important;
+    line-height: 1.2 !important;
+}
+
+/* Tabs (Parking Layout) */
+[data-testid="stTabs"] [role="tablist"] {
+    gap: 8px !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 1rem !important;
+}
+
+[data-testid="stTabs"] button[role="tab"] {
+    background: #e2e8f0 !important;
+    border-radius: 10px !important;
+    padding: 0.55rem 1.2rem !important;
+    border: none !important;
+    transition: all 0.18s ease !important;
+}
+
+[data-testid="stTabs"] button[role="tab"] * {
+    color: #334155 !important;
+    -webkit-text-fill-color: #334155 !important;
+    font-weight: 700 !important;
+    font-size: 0.88rem !important;
+}
+
+[data-testid="stTabs"] button[role="tab"]:hover {
+    background: #cbd5e1 !important;
+}
+
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
+    background: linear-gradient(135deg, #6c5dd3, #5a4bcf) !important;
+    box-shadow: 0 4px 12px rgba(108, 93, 211, 0.25) !important;
+}
+
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+/* Buttons */
+.stButton > button {
+    background: linear-gradient(135deg, #6c5dd3, #5a4bcf) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    border: none !important;
+    padding: 0.68rem 1.8rem !important;
+    font-weight: 800 !important;
+    border-radius: 12px !important;
+    font-size: 0.9rem !important;
+    box-shadow: 0 4px 14px rgba(108, 93, 211, 0.25) !important;
+    transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+.stButton > button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(108, 93, 211, 0.35) !important;
+}
+
+.stButton > button * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Checkbox */
+.stCheckbox * {
+    color: #334155 !important;
+    -webkit-text-fill-color: #334155 !important;
+    font-weight: 600 !important;
+}
+
+/* Dataframe & Tables */
+[data-testid="stDataFrame"] {
+    background-color: #ffffff !important;
     border-radius: 12px !important;
 }
 </style>
@@ -1272,11 +1463,11 @@ def render_dashboard():
             margin=dict(l=25, r=10, t=10, b=25),
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
-            xaxis=dict(showgrid=False, zeroline=False, color='#94a3b8', tickfont=dict(size=10, family='Plus Jakarta Sans')),
-            yaxis=dict(showgrid=True, gridcolor='#f1f5f9', zeroline=False, color='#94a3b8', tickfont=dict(size=10, family='Plus Jakarta Sans'), range=[0, 65]),
+            xaxis=dict(showgrid=False, zeroline=False, color='#334155', tickfont=dict(size=10, color='#334155', family='Plus Jakarta Sans')),
+            yaxis=dict(showgrid=True, gridcolor='#edf2f7', zeroline=False, color='#334155', tickfont=dict(size=10, color='#334155', family='Plus Jakarta Sans'), range=[0, 65]),
             legend=dict(
                 orientation='h', yanchor='bottom', y=1.02, xanchor='center', x=0.5,
-                font=dict(size=10, color='#64748b', family='Plus Jakarta Sans')
+                font=dict(size=10, color='#1e293b', family='Plus Jakarta Sans')
             ),
             hovermode='x unified',
         )
@@ -1771,11 +1962,24 @@ def render_rush_prediction():
 
             fig.update_layout(
                 height=340,
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-                font=dict(family='Plus Jakarta Sans', color='#64748b'),
-                xaxis=dict(showgrid=False, color='#94a3b8'),
-                yaxis=dict(showgrid=True, gridcolor='#edf2f7', color='#94a3b8', range=[0, 100]),
+                paper_bgcolor='#ffffff',
+                plot_bgcolor='#ffffff',
+                font=dict(family='Plus Jakarta Sans', color='#1e293b'),
+                xaxis=dict(
+                    showgrid=True,
+                    gridcolor='#f1f5f9',
+                    color='#1e293b',
+                    tickfont=dict(color='#1e293b', size=11, family='Plus Jakarta Sans'),
+                    title_font=dict(color='#0f172a', size=12, family='Plus Jakarta Sans')
+                ),
+                yaxis=dict(
+                    showgrid=True,
+                    gridcolor='#edf2f7',
+                    color='#1e293b',
+                    tickfont=dict(color='#1e293b', size=11, family='Plus Jakarta Sans'),
+                    title_font=dict(color='#0f172a', size=12, family='Plus Jakarta Sans'),
+                    range=[0, 100]
+                ),
             )
             fig.update_traces(line_color='#6c5dd3', marker_color='#5a4bcf')
             st.plotly_chart(fig, use_container_width=True, key="rush_pred_chart_page")

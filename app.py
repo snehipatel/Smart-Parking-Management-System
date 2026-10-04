@@ -588,7 +588,7 @@ div[data-testid="stVerticalBlockBorderWrapper"] > div {
 .qa-card-title { font-size: 0.82rem; font-weight: 700; flex: 1; }
 .qa-card-arrow { font-size: 1.1rem; font-weight: 700; }
 
-/* Digital Parking Pass Ticket */
+/* Digital Parking Pass Ticket (Inline) */
 .ticket-pass-card {
     background: #ffffff;
     border: 2px dashed #6c5dd3;
@@ -635,6 +635,263 @@ div[data-testid="stVerticalBlockBorderWrapper"] > div {
     text-align: center;
     padding-top: 0.8rem;
     border-top: 1px dashed #edf2f7;
+}
+
+/* ─── INLINE RECTANGULAR PARKING PASS ─── */
+@keyframes rectPassSlideIn {
+    0%   { transform: translateX(120px); opacity: 0; }
+    60%  { transform: translateX(-4px); opacity: 1; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.rect-pass-card {
+    background: #ffffff;
+    border: 2px solid #6c5dd3;
+    border-radius: 16px;
+    padding: 0.75rem 1rem 0.7rem 1rem;
+    box-shadow: 0 6px 24px rgba(108, 93, 211, 0.14);
+    animation: rectPassSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.rect-pass-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #6c5dd3, #8b5cf6, #6c5dd3);
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+.rp-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.rp-badge {
+    font-size: 0.62rem;
+    font-weight: 800;
+    color: #6c5dd3;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.rp-status-pill {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #15803d;
+    background: #dcfce7;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.rp-body {
+    display: flex;
+    gap: 14px;
+    align-items: stretch;
+}
+
+.rp-slot-block {
+    background: linear-gradient(135deg, #6c5dd3, #5a4bcf);
+    color: white;
+    padding: 0.55rem 0.7rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(108, 93, 211, 0.3);
+}
+
+.rp-slot-id {
+    font-size: 1.15rem;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.rp-slot-floor {
+    font-size: 0.58rem;
+    opacity: 0.9;
+    margin-top: 2px;
+}
+
+.rp-slot-dist {
+    font-size: 0.55rem;
+    opacity: 0.75;
+    margin-top: 1px;
+}
+
+.rp-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px 14px;
+    flex: 1;
+}
+
+.rp-field-label {
+    font-size: 0.56rem;
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    line-height: 1;
+}
+
+.rp-field-val {
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: #1e293b;
+    line-height: 1.2;
+}
+
+.rp-barcode-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+    padding-top: 5px;
+    border-top: 1px dashed #edf2f7;
+}
+
+.rp-barcode-bars {
+    font-family: monospace;
+    letter-spacing: 2px;
+    font-weight: 800;
+    color: #475569;
+    font-size: 0.72rem;
+}
+
+.rp-barcode-hint {
+    font-size: 0.55rem;
+    color: #94a3b8;
+}
+
+/* ─── Park Vehicle: Rectangular Pass Close Button ─── */
+div[data-testid="stColumn"]:has(.rect-pass-card) {
+    position: relative !important;
+}
+
+div[data-testid="stColumn"]:has(.rect-pass-card) > div > div:has(button),
+div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stVerticalBlock"] > div:has(button),
+div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="element-container"]:has(button) {
+    position: absolute !important;
+    top: 10px !important;
+    right: 14px !important;
+    z-index: 99 !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] {
+    position: static !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] > button {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+    max-width: 24px !important;
+    max-height: 24px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    background: #f1f5f9 !important;
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+    border: 1px solid #cbd5e1 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.18s ease-in-out !important;
+    cursor: pointer !important;
+}
+
+div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] > button:hover {
+    background: #fee2e2 !important;
+    color: #ef4444 !important;
+    -webkit-text-fill-color: #ef4444 !important;
+    border-color: #fca5a5 !important;
+    transform: scale(1.12) !important;
+}
+
+div[data-testid="stColumn"]:has(.rect-pass-card) div[data-testid="stButton"] > button * {
+    color: inherit !important;
+    -webkit-text-fill-color: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+
+/* ─── Park Vehicle: Equal-Height Columns ─── */
+div[data-testid="stHorizontalBlock"]:has(.park-form-box) {
+    display: flex !important;
+    align-items: stretch !important;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.park-form-box) > div[data-testid="stColumn"] {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.park-form-box) > div[data-testid="stColumn"] > div[data-testid="stVerticalBlock"] {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.park-form-box) div[data-testid="stVerticalBlockBorderWrapper"] {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    margin-bottom: 0 !important;
+    box-sizing: border-box !important;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.park-form-box) div[data-testid="stVerticalBlockBorderWrapper"] > div[data-testid="stVerticalBlock"] {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    justify-content: space-between !important;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.park-form-box) .park-map-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    min-height: 100% !important;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.park-form-box) div[data-testid="stColumn"]:has(.park-map-wrapper) .stMarkdown,
+div[data-testid="stHorizontalBlock"]:has(.park-form-box) div[data-testid="stColumn"]:has(.park-map-wrapper) [data-testid="stMarkdownContainer"] {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    justify-content: space-between !important;
 }
 
 /* ─── GUARANTEED HIGH-CONTRAST STREAMLIT ELEMENTS & LABELS ─── */
@@ -855,6 +1112,8 @@ if "dash_layout_floor" not in st.session_state:
     st.session_state.dash_layout_floor = 0
 if "nav_page" not in st.session_state:
     st.session_state.nav_page = "🏠  Dashboard"
+if "floating_pass" not in st.session_state:
+    st.session_state.floating_pass = None
 
 def set_page(page_name):
     st.session_state.nav_page = page_name
@@ -1508,18 +1767,80 @@ def render_dashboard():
 def render_park_vehicle():
     render_top_bar()
 
-    st.markdown(clean_html("""
-        <div class="subpage-header-box">
-            <div class="subpage-badge-pill">🅿️ VEHICLE ENTRY TERMINAL</div>
-            <h1 class="subpage-main-title">Park Your Vehicle</h1>
-            <div class="subpage-sub-desc">Intelligent slot allocation optimizing walking distance to elevators & stairs</div>
-        </div>
-    """), unsafe_allow_html=True)
+    # ─── HEADER ROW: Title (left) + Rectangular Pass (right blank space) ───
+    has_pass = st.session_state.get("floating_pass") is not None
 
-    col_form, col_preview = st.columns([1.2, 1.3])
+    if has_pass:
+        col_hdr, col_pass_area = st.columns([1.15, 1.35])
+    else:
+        col_hdr = st.container()
+        col_pass_area = None
+
+    with col_hdr:
+        st.markdown(clean_html("""
+            <div class="subpage-header-box">
+                <div class="subpage-badge-pill">🅿️ VEHICLE ENTRY TERMINAL</div>
+                <h1 class="subpage-main-title">Park Your Vehicle</h1>
+                <div class="subpage-sub-desc">Intelligent slot allocation optimizing walking distance to elevators & stairs</div>
+            </div>
+        """), unsafe_allow_html=True)
+
+    if has_pass and col_pass_area is not None:
+        fp = st.session_state.floating_pass
+        vtype_icon = "🚗" if fp.get("vtype") == "4-Wheeler" else "🏍️"
+        with col_pass_area:
+            st.markdown(clean_html(f"""
+                <div class="rect-pass-card">
+                    <div class="rp-top-row" style="padding-right: 32px;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span class="rp-badge">Smart Parking Pass</span>
+                            <span class="rp-status-pill">✓ Allocated</span>
+                        </div>
+                    </div>
+                    <div class="rp-body">
+                        <div class="rp-slot-block">
+                            <div class="rp-slot-id">{fp['slot_id']}</div>
+                            <div class="rp-slot-floor">{fp['floor_name']}</div>
+                            <div class="rp-slot-dist">{fp['dist']}m to stairs</div>
+                        </div>
+                        <div class="rp-info-grid">
+                            <div>
+                                <div class="rp-field-label">Vehicle</div>
+                                <div class="rp-field-val">{vtype_icon} {fp['vehicle']}</div>
+                            </div>
+                            <div>
+                                <div class="rp-field-label">Category</div>
+                                <div class="rp-field-val">{fp['vtype']}</div>
+                            </div>
+                            <div>
+                                <div class="rp-field-label">Check-in</div>
+                                <div class="rp-field-val">{fp['time']}</div>
+                            </div>
+                            <div>
+                                <div class="rp-field-label">Date</div>
+                                <div class="rp-field-val">{fp['date']}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rp-barcode-row">
+                        <span class="rp-barcode-bars">||| | |||| | ||| || ||||</span>
+                        <span class="rp-barcode-hint">Keep ticket safe for checkout</span>
+                    </div>
+                </div>
+            """), unsafe_allow_html=True)
+
+            if st.button("✕", key="dismiss_park_pass", help="Dismiss pass"):
+                st.session_state.floating_pass = None
+                st.session_state.parking_success = None
+                st.rerun()
+
+    # ─── EQUAL-HEIGHT FORM + MAP COLUMNS ───
+    st.markdown('<div class="park-equal-height"></div>', unsafe_allow_html=True)
+    col_form, col_preview = st.columns([1.15, 1.35])
 
     with col_form:
         with st.container(border=True):
+            st.markdown('<div class="park-form-box"></div>', unsafe_allow_html=True)
             st.markdown('<div style="font-weight:800; font-size:1.15rem; color:#1e293b; margin-bottom:0.75rem;">📝 Vehicle Check-in Form</div>', unsafe_allow_html=True)
 
             st.text_input(
@@ -1570,7 +1891,7 @@ def render_park_vehicle():
                 else:
                     success, msg, slot_info = st.session_state.manager.park_vehicle(v_num, actual_type)
                     if success:
-                        st.session_state.parking_success = {
+                        pass_data = {
                             "slot_id": slot_info["slot_id"],
                             "floor_name": slot_info["floor_name"],
                             "floor_number": slot_info["floor_number"],
@@ -1580,83 +1901,45 @@ def render_park_vehicle():
                             "time": datetime.now().strftime("%I:%M:%S %p"),
                             "date": datetime.now().strftime("%d-%b-%Y")
                         }
-                        st.session_state.pop("park_veh_input", None)
+                        st.session_state.parking_success = pass_data
+                        st.session_state.floating_pass = pass_data
+                        st.session_state["park_veh_input"] = ""
                         st.rerun()
                     else:
                         st.error(msg)
 
-        # Parking Pass Display
-        if st.session_state.get("parking_success"):
-            ps = st.session_state.parking_success
-            st.markdown(clean_html(f"""
-                <div class="ticket-pass-card">
-                    <div class="ticket-header">
-                        <div>
-                            <div style="font-size:0.75rem; font-weight:800; color:#6c5dd3; letter-spacing:1px;">SMART PARKING PASS</div>
-                            <div style="font-size:1.1rem; font-weight:800; color:#1e293b;">ENTRY TICKET</div>
-                        </div>
-                        <div style="font-size:0.8rem; font-weight:700; color:#16a34a; background:#dcfce7; padding:4px 10px; border-radius:20px;">
-                            ✓ ALLOCATED
-                        </div>
-                    </div>
-                    <div class="ticket-slot-display">
-                        <div class="ticket-slot-id">{ps['slot_id']}</div>
-                        <div class="ticket-slot-sub">{ps['floor_name']} &bull; {ps['dist']}m to stairs</div>
-                    </div>
-                    <div class="ticket-data-grid">
-                        <div>
-                            <div class="ticket-field-label">Vehicle Number</div>
-                            <div class="ticket-field-val">{ps['vehicle']}</div>
-                        </div>
-                        <div>
-                            <div class="ticket-field-label">Vehicle Category</div>
-                            <div class="ticket-field-val">{ps['vtype']}</div>
-                        </div>
-                        <div>
-                            <div class="ticket-field-label">Check-in Time</div>
-                            <div class="ticket-field-val">{ps['time']}</div>
-                        </div>
-                        <div>
-                            <div class="ticket-field-label">Entry Date</div>
-                            <div class="ticket-field-val">{ps['date']}</div>
-                        </div>
-                    </div>
-                    <div class="ticket-barcode-wrap">
-                        <div style="font-family:monospace; letter-spacing:4px; font-weight:800; color:#475569; font-size:1.1rem;">
-                            ||| | |||| | ||| || |||| | ||
-                        </div>
-                        <div style="font-size:0.7rem; color:#94a3b8; margin-top:4px;">Please keep this ticket safely for checkout</div>
-                    </div>
-                </div>
-            """), unsafe_allow_html=True)
-            
-            if st.button("🅿️ Park Another Vehicle", use_container_width=True):
-                st.session_state.parking_success = None
-                st.rerun()
+            # Park Another button (only shows after a successful park)
+            if st.session_state.get("parking_success"):
+                if st.button("🅿️ Park Another Vehicle", use_container_width=True, key="park_another_btn"):
+                    st.session_state.parking_success = None
+                    st.session_state.floating_pass = None
+                    st.session_state["park_veh_input"] = ""
+                    st.rerun()
 
     with col_preview:
         target_f = 2 if actual_type == "4-Wheeler" else 0
         target_f_name = "Basement 2 (4W)" if target_f == 2 else "Ground Floor (2W)"
         hl_slot = st.session_state.parking_success["slot_id"] if st.session_state.get("parking_success") else (best['slot_id'] if best else None)
         
-        st.markdown(clean_html(f"""
-            <div class="ref-section-card">
-                <div class="ref-section-header">
-                    <div class="ref-section-title">
-                        <span style="color:#6c5dd3; font-size:1.2rem;">🗺️</span>
-                        Live Allocation Map &bull; {target_f_name}
+        with st.container(border=True):
+            st.markdown(clean_html(f"""
+                <div class="park-map-wrapper">
+                    <div class="ref-section-header" style="margin-bottom:0.6rem;">
+                        <div class="ref-section-title" style="font-size:1.15rem;">
+                            <span style="color:#6c5dd3; font-size:1.2rem;">🗺️</span>
+                            Live Allocation Map &bull; {target_f_name}
+                        </div>
+                    </div>
+                    <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:0.4rem 0;">
+                        {generate_dynamic_parking_svg(target_f, highlight_slot=hl_slot)}
+                    </div>
+                    <div class="legend-bar" style="margin-top:0.6rem;">
+                        <div class="legend-dot-item"><span class="dot-circle dot-green"></span> Available</div>
+                        <div class="legend-dot-item"><span class="dot-circle dot-red"></span> Occupied</div>
+                        <div class="legend-dot-item"><span style="width:10px; height:10px; border-radius:50%; background:#6c5dd3;"></span> Recommended Slot</div>
                     </div>
                 </div>
-                <div>
-                    {generate_dynamic_parking_svg(target_f, highlight_slot=hl_slot)}
-                </div>
-                <div class="legend-bar">
-                    <div class="legend-dot-item"><span class="dot-circle dot-green"></span> Available</div>
-                    <div class="legend-dot-item"><span class="dot-circle dot-red"></span> Occupied</div>
-                    <div class="legend-dot-item"><span style="width:10px; height:10px; border-radius:50%; background:#6c5dd3;"></span> Recommended Slot</div>
-                </div>
-            </div>
-        """), unsafe_allow_html=True)
+            """), unsafe_allow_html=True)
 
 
 # ───────────────────────────────────────────────────────────
@@ -2082,6 +2365,9 @@ def render_settings():
             st.rerun()
 
 
+# (Floating pass is now rendered inline in render_park_vehicle)
+
+
 # ───────────────────────────────────────────────────────────
 # MAIN APPLICATION CONTROLLER
 # ───────────────────────────────────────────────────────────
@@ -2149,6 +2435,11 @@ def main():
 
     # ─── ROUTER ───
     current = st.session_state.nav_page
+
+    # Clear pass when leaving Park Vehicle tab
+    if current != "🚗  Park Vehicle":
+        st.session_state.floating_pass = None
+        st.session_state.parking_success = None
 
     if current == "🏠  Dashboard":
         render_dashboard()

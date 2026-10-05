@@ -63,101 +63,61 @@ html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stApp"] {
     color: var(--text-navy) !important;
 }
 
-/* ─── ELIMINATE UNNECESSARY TOP SPACE & STREAMLIT HEADER ─── */
-header[data-testid="stHeader"],
-[data-testid="stHeader"],
-header {
-    display: none !important;
-    height: 0 !important;
-    min-height: 0 !important;
-    max-height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    visibility: hidden !important;
-}
-
-#MainMenu, footer {
-    visibility: hidden !important;
-    height: 0 !important;
-    display: none !important;
-}
-
-[data-testid="stAppViewContainer"] > .main,
-.main {
-    padding-top: 0 !important;
-}
-
 .block-container {
-    padding-top: 0.5rem !important;
-    padding-bottom: 2rem !important;
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
+    padding: 1.2rem 2.2rem 2.5rem 2.2rem !important;
     max-width: 100% !important;
 }
 
-/* ─── FIXED UNSTREAMED / UNSCROLLABLE SIDEBAR ─── */
-section[data-testid="stSidebar"],
-[data-testid="stSidebar"],
-[data-testid="stSidebar"] > div,
-[data-testid="stSidebarContent"],
-[data-testid="stSidebarUserContent"] {
-    overflow: hidden !important;
-    overflow-y: hidden !important;
-    overflow-x: hidden !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
-}
+#MainMenu, footer, header { visibility: hidden !important; height: 0 !important; }
 
+/* ─── SIDEBAR STYLING ─── */
 [data-testid="stSidebar"] {
     background-color: #ffffff !important;
     border-right: 1px solid #edf2f7 !important;
     box-shadow: 2px 0 16px rgba(0, 0, 0, 0.02) !important;
-    padding-top: 0 !important;
+    padding-top: 0.5rem !important;
 }
 
 [data-testid="stSidebar"] > div:first-child {
-    padding: 0.6rem 0.9rem 0.4rem 0.9rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100% !important;
-    justify-content: flex-start !important;
-    overflow: hidden !important;
+    padding: 1rem 1.2rem !important;
+    display: flex;
+    flex-direction: column;
 }
 
 .brand-logo-wrap {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 0.1rem 0 0.5rem 0.2rem;
+    gap: 12px;
+    padding: 0.4rem 0 1.2rem 0.2rem;
 }
 
 .brand-icon-box {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     background: linear-gradient(135deg, #6c5dd3, #5a4bcf);
-    border-radius: 10px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 10px rgba(108, 93, 211, 0.25);
+    box-shadow: 0 4px 12px rgba(108, 93, 211, 0.3);
     flex-shrink: 0;
 }
 
 .brand-title {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     font-weight: 800;
     color: #1e293b;
-    line-height: 1.15;
+    line-height: 1.2;
     letter-spacing: -0.3px;
 }
 
 .brand-sub {
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     color: #94a3b8;
     font-weight: 500;
 }
 
-/* ─── REMOVE RADIO BUTTONS IN TABS / SIDEBAR NAV ─── */
+/* Hide Radio Labels and Circles */
 [data-testid="stSidebar"] [data-testid="stRadio"] > label,
 [data-testid="stSidebar"] [data-testid="stWidgetLabel"],
 [data-testid="stSidebar"] div:has(> [data-testid="stRadio"]) label:first-child:not(:has(input)) {
@@ -168,62 +128,40 @@ section[data-testid="stSidebar"],
     padding: 0 !important;
 }
 
-/* Aggressively hide any radio circle, dot, SVG, or input element */
-[data-testid="stSidebar"] [data-testid="stRadio"] [data-testid="stRadioIndicator"],
-[data-testid="stSidebar"] [data-testid="stRadio"] input[type="radio"],
-[data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] input,
-[data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] > div:first-child,
-[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-child,
-[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-of-type,
-[data-testid="stSidebar"] [data-testid="stRadio"] div:has(> input[type="radio"]),
-[data-testid="stSidebar"] [data-testid="stRadio"] svg {
+[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-child {
     display: none !important;
-    visibility: hidden !important;
-    width: 0 !important;
-    height: 0 !important;
-    min-width: 0 !important;
-    min-height: 0 !important;
-    opacity: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    position: absolute !important;
-    pointer-events: none !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] > div {
-    gap: 2px !important;
+    gap: 4px !important;
 }
 
-/* Style navigation items as sleek clickable tabs */
 [data-testid="stSidebar"] [data-testid="stRadio"] label {
     display: flex !important;
     align-items: center !important;
     width: 100% !important;
-    padding: 0.42rem 0.85rem !important;
-    border-radius: 10px !important;
+    padding: 0.62rem 1rem !important;
+    border-radius: 12px !important;
     margin: 0 !important;
-    font-size: 0.84rem !important;
+    font-size: 0.9rem !important;
     font-weight: 700 !important;
     color: #475569 !important;
     cursor: pointer !important;
-    transition: all 0.16s ease-in-out !important;
+    transition: all 0.18s ease-in-out !important;
     background: transparent !important;
     border: none !important;
-    user-select: none !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] label p,
 [data-testid="stSidebar"] [data-testid="stRadio"] label span {
     color: #475569 !important;
     -webkit-text-fill-color: #475569 !important;
-    font-size: 0.84rem !important;
+    font-size: 0.9rem !important;
     font-weight: 700 !important;
-    margin: 0 !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] label:hover {
-    background: #f1f5f9 !important;
-    transform: translateX(2px) !important;
+    background: #f4f6fc !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] label:hover p,
@@ -236,7 +174,7 @@ section[data-testid="stSidebar"],
     background: linear-gradient(135deg, #6c5dd3 0%, #5a4bcf 100%) !important;
     color: #ffffff !important;
     font-weight: 800 !important;
-    box-shadow: 0 4px 12px rgba(108, 93, 211, 0.28) !important;
+    box-shadow: 0 5px 15px rgba(108, 93, 211, 0.3) !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) p,
@@ -247,29 +185,20 @@ section[data-testid="stSidebar"],
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:nth-child(7) {
-    margin-top: 0.65rem !important;
+    margin-top: 1.2rem !important;
     position: relative !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:nth-child(7)::before {
     content: "SYSTEM";
     position: absolute;
-    top: -0.85rem;
+    top: -1.15rem;
     left: 0.5rem;
-    font-size: 0.64rem;
+    font-size: 0.68rem;
     font-weight: 800;
     letter-spacing: 1.5px;
     color: #94a3b8;
     pointer-events: none;
-}
-
-/* Sidebar illustration constraint */
-[data-testid="stSidebar"] img {
-    max-height: 75px !important;
-    width: auto !important;
-    margin: 0.2rem auto 0 auto !important;
-    display: block !important;
-    object-fit: contain !important;
 }
 
 /* ─── TOP APP BAR ─── */
@@ -277,7 +206,7 @@ section[data-testid="stSidebar"],
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.75rem !important;
+    margin-bottom: 1.2rem;
 }
 
 .search-box-pill {
@@ -286,9 +215,9 @@ section[data-testid="stSidebar"],
     gap: 10px;
     background: #ffffff;
     border: 1px solid #edf2f7;
-    border-radius: 12px;
-    padding: 0.45rem 1.1rem;
-    width: 360px;
+    border-radius: 14px;
+    padding: 0.6rem 1.3rem;
+    width: 380px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
@@ -2613,7 +2542,7 @@ def main():
         st.rerun()
 
     # Sidebar Bottom Car Illustration
-    st.sidebar.markdown('<div style="margin-top: 0.3rem;"></div>', unsafe_allow_html=True)
+    st.sidebar.markdown('<div style="margin-top: 1.5rem;"></div>', unsafe_allow_html=True)
     if os.path.exists("assets/sidebar_car.png"):
         st.sidebar.image("assets/sidebar_car.png", use_container_width=True)
 
